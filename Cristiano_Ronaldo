@@ -1,0 +1,58 @@
+-- Take a look at Christiano Ronaldo Performances throughout this career--
+
+SELECT Player, Competition, Season, Club, Result, Type, Opponent
+  
+FROM `ageless-command-371412.01.01` LIMIT 1000
+
+WHERE Season = "02/03"
+ORDER BY Season DESC
+
+--- Split result column into 2 ---
+
+SELECT Result
+  SUBSTR(Result, 1, INSTR(Result,':')) AS Team_Score
+  SUBSTR(Result, INSTR(Result,':')) AS Opponent_Team_Score
+
+FROM `ageless-command-371412.01.01`
+
+WHERE Team_Score >= 3
+
+----- Win rate in Major tournament -----
+SELECT Team_Score, Opponent_Team_Score
+  CREAT TABLE Win_Rate AS
+  IF Team_Score <= Opponent_Team_Score 
+  THEN Win_Rate = 0
+  IF Team_Score > Opponent_Team_Score 
+  THEN Winrate = 100
+
+AVG(Win_rate )
+
+FROM `ageless-command-371412.01.01`
+
+WHERE Competition = 'Serie A', 'LaLiga','UEFA Champions League'
+ORDER BY Team_Score DESC
+
+--- Look for this amazing game Pourtugal vs Spain in 2018 (fabulous hat trick)---
+
+SELECT Player, Competition, Team_Score, Opponent_Team_Score,Opponent
+
+FROM `ageless-command-371412.01.01`
+
+WHERE 
+  Competition = 'World Cup'
+  Opponent  = 'Spain'
+  Team_Score = 3
+
+-- Classico --
+
+SELECT *
+
+FROM `ageless-command-371412.01.01`
+
+WHERE 
+  Player = 'Lionel Messi'
+  Club = 'FC Barcelona'
+  Opponent = 'Real Madrid '
+
+
+
