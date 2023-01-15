@@ -1,0 +1,101 @@
+
+--------- We are practicing naviguating in a Austin's police database regouping different kinds of crimes - ----------
+
+
+SELECT*
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE 
+  clearance_status = 'Not cleared'
+AND description ="THEFT"
+
+------------ Add columns  -----------------
+
+SELECT address, SUBSTR(address,1,INSTR(address,' ' ))  as City 
+                SUBSTR(addess, INSTR(addess,' ')) as State
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE addess = 'TX'
+
+---------------------------------------------------------
+
+SELECT clearance_date AS date,
+  SUBSTR(clearance_date,1,INSTR(clearance_date, ' ')) AS clearance_day
+  SUBSTR(clearance_date,INSTR(clearance_date, ' ')) AS clearance_hour 
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE date BETWEEN 2015 AND 2018
+
+---------------- Get date ------------------------
+
+S--------- We are practicing naviguating in a Austin's police database regouping different kinds of crimes - ----------
+
+
+SELECT*
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE 
+  clearance_status = 'Not cleared'
+AND description ="THEFT"
+
+------------ Add columns  -----------------
+
+SELECT address, SUBSTR(address,1,INSTR(address,' ' ))  as City 
+                SUBSTR(addess, INSTR(addess,' ')) as State
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE addess = 'TX
+
+---------------------------------------------------------
+
+SELECT clearance_date AS date,
+  SUBSTR(clearance_date,1,INSTR(clearance_date, ' ')) AS clearance_day
+  SUBSTR(clearance_date,INSTR(clearance_date, ' ')) AS clearance_hour 
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE date BETWEEN 2015 AND 2018
+
+---------------- Get date ------------------------
+
+SELECT* 
+  TRIM ('UTC' FROM clearance_date) AS Trimed_clearance_date 
+  FORMAT(getdate(Trimed_clearance_date), 'dd-MM-yy' as date
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE 
+GROUP BY date ASC 
+
+
+------------- Remove digits from district column, delete complete cases, sort correclty ---
+
+SELECT*
+DELETE from district
+    WHERE district between 0 and 100
+
+DELETE from clearance_status
+  WHERE clearance_status = 'cleared' AND clearance_status = 'Cleared by Exception'
+
+
+FROM  bigquery-public-data.austin_crime.crime
+
+WHERE description = 'RAPE'
+GROUP BY year DESC 
+
+----- Highlight certain district ---
+
+SELECT address, description, primary_type, year 
+  IF (District = 'UK', "settlement of CCTV's needed", "increasing patrols needed")
+
+FROM bigquery-public-data.austin_crime.crime
+
+WHERE description = 'AGG SEXUAL ASSAULT CHILD'
+  GROUP BY disctrict 
+
+
